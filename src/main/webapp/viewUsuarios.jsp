@@ -11,10 +11,12 @@
 	
 	<h1>Lista de Usuários</h1>
 	
+
 	<%
 	List<Usuario> list = UsuarioDao.getAllUsuarios();
 	request.setAttribute("list", list);
 	%>
+	
 	
 	<table>
 	
@@ -25,6 +27,8 @@
 		<th>Email</th>
 		<th>Sexo</th>
 		<th>País</th>
+		<th></th>
+		<th></th>
 	</tr>
 	
 	<c:forEach items="${list}" var="usuario">
@@ -35,9 +39,13 @@
 			<td>${usuario.getEmail()}</td>
 			<td>${usuario.getSexo()}</td>
 			<td>${usuario.getPais()}</td>
+			<td><a href="edit.jsp?id=${usuario.getId()}"><button>Editar</button></a></td>
+			<td><a href=""><button>Excluir</button></a></td>
 		</tr>
 	</c:forEach>
 	</table>
+	<br>
+	<a href=""><button>Adcionar novo usuário</button></a>
 
 
 
