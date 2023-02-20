@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +23,20 @@ public class UsuarioDao {
 			System.out.println(e);
 		}
 		return con;
+	}
+	
+	public static int deleteusuario(Usuario u) {
+		int status = 0;
+		try {
+			Connection con = getConnection();
+			PreparedStatement ps = (PreparedStatement) con.prepareStatement("DELETE FROM usuario WHERE id=?");
+			ps.setInt(1, u.getId());
+			status = ps.executeUpdate();
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return status;
 	}
 	
 	
@@ -128,7 +141,32 @@ public class UsuarioDao {
 		return list;
 	}
 	
-	
+	public static List<Usuario> getRecords(int start, int total){
+		List<Usuario> list = new ArrayList<Usuario>();
+		
+		try {
+			Connection con = getConnection();
+			PreparedStatement ps = (PreparedStatement) con.prepareStatement("SELECT * FROM LIMIT " +(start -1)+"," + total);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Usuario usuario = new Usuario();
+				usuario.setId(rs.getInt("id"));
+				usuario.setNome(rs.getString("Nome"));
+				usuario.setPassword(rs.getString("password"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setSexo(rs.getString("sexo"));
+				usuario.setPais(rs.getString("pais"));
+				
+				list.add(usuario);
+				
+			}
+			con.close();
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		return list;
+	}
 	
 	
 	
