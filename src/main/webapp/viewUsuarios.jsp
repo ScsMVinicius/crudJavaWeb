@@ -45,7 +45,7 @@
 	</c:forEach>
 	</table>
 	<br>
-	<a href=""><button>Adcionar novo usuário</button></a>
+	<a href=""><button>Adicionar novo usuário</button></a>
 
 
 
